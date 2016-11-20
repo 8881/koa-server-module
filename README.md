@@ -150,4 +150,19 @@ router.get(`/page`, async(ctx, next) => {
 server.listen(9000);
 ```
 
+### es5 way
+es5环境下如何使用
+
+```
+'use strict';
+
+const server = require('../build/server').server;
+
+server.get('/test',{
+  code: 200
+});
+
+server.listen(9001);
+```
+
 完

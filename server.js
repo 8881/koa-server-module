@@ -1,5 +1,7 @@
 `use strict`;
 
+require('babel-polyfill');
+
 import http from "http";
 import Koa from "koa";
 import Cors from "kcors";

@@ -1,6 +1,6 @@
 'use strict';
 
-import {server, router} from "../server";
+import {server, router} from "../build/server";
 
 server.delay(0);
 

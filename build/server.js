@@ -7,6 +7,10 @@ exports.router = exports.server = exports.app = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _http = require("http");
+
+var _http2 = _interopRequireDefault(_http);
+
 var _koa = require("koa");
 
 var _koa2 = _interopRequireDefault(_koa);
@@ -30,6 +34,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 "use strict";
+
+require('babel-polyfill');
 
 var app = new _koa2.default();
 var cors = new _kcors2.default();
@@ -136,32 +142,21 @@ var server = function () {
         };
       }());
     }
+  }, {
+    key: "listen",
+    value: function listen(port) {
+      var p = parseInt(port, 10);
+      p = isNaN(p) || !isNaN(p) && (p < 0 || p > 65536) ? 9000 : p;
+      var s = _http2.default.createServer(app.callback());
+      s.listen(p, function () {
+        var port = s.address().port;
+        console.log("[server] http://localhost:" + port);
+      });
+    }
   }]);
 
   return server;
 }();
-
-router.get("*", function () {
-  var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(ctx, next) {
-    return regeneratorRuntime.wrap(function _callee4$(_context4) {
-      while (1) {
-        switch (_context4.prev = _context4.next) {
-          case 0:
-            ctx.set("content-type", "text/html; charset-utf8");
-            ctx.body = "<h1>" + ctx.status + ".</h1>";
-
-          case 2:
-          case "end":
-            return _context4.stop();
-        }
-      }
-    }, _callee4, undefined);
-  }));
-
-  return function (_x7, _x8) {
-    return _ref4.apply(this, arguments);
-  };
-}());
 
 exports.app = app;
 exports.server = server;

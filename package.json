@@ -1,13 +1,13 @@
 {
   "name": "koa-server-module",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "koa server module",
   "main": "build/server.js",
   "scripts": {
     "dev": "babel server.js --out-dir ./build -w",
     "prepublish": "babel server.js -d ./build"
   },
-  "author": "",
+  "author": "countsheep",
   "license": "MIT",
   "homepage": "https://github.com/8881/koa-server-module",
   "repository": {
