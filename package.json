@@ -1,6 +1,6 @@
 {
   "name": "koa-server-module",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "koa server module",
   "main": "build/server.js",
   "scripts": {
@@ -12,7 +12,10 @@
   "homepage": "https://github.com/8881/koa-server-module",
   "repository": {
     "type": "git",
-    "url": "hhttps://github.com/8881/koa-server-module"
+    "url": "https://github.com/8881/koa-server-module"
+  },
+  "bugs": {
+    "url": "https://github.com/8881/koa-server-module/issues"
   },
   "dependencies": {
     "babel-core": "^6.18.2",
