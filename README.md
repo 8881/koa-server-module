@@ -19,7 +19,7 @@ server.get([address],[response]);
 server.post([address],[response]);
 ```
 
-example
+example.js
 
 ```
 import {server} from "koa-server-module";
@@ -37,6 +37,10 @@ server.post('/post', {
 });
 
 server.listen(9000);
+```
+
+```
+node example.js
 ```
 
 浏览器打开 http://localhost:9000/get, 得到对应的json数据

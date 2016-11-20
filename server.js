@@ -1,5 +1,6 @@
 `use strict`;
 
+import http from "http";
 import Koa from "koa";
 import Cors from "kcors";
 import Router from "koa-router";
@@ -47,15 +48,12 @@ class server {
   static listen(port) {
     let p = parseInt(port, 10);
     p = isNaN(p) || (!isNaN(p) && (p < 0 || p > 65536)) ? 9000 : p;
-    app.listen(p, () => {
-      console.log(`[server] http://localhost:${p}`);
+    const s = http.createServer(app.callback());
+    s.listen(p, function () {
+      const port = s.address().port;
+      console.log(`[server] http://localhost:${port}`);
     });
   }
 }
-
-router.get(`*`, async(ctx, next) => {
-  ctx.set(`content-type`, `text/html; charset-utf8`);
-  ctx.body = `<h1>${ctx.status}.</h1>`;
-});
 
 export {app, server, router};
