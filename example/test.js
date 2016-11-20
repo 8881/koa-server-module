@@ -1,6 +1,8 @@
 'use strict';
 
-import {app, server,router} from "../build/server";
+import {app, server, router} from "../server";
+
+server.delay(0);
 
 server.get(`/get`, {
   "code": 200,
@@ -8,7 +10,7 @@ server.get(`/get`, {
   "data": "get ok."
 });
 
-server.post(`/post`,{
+server.post(`/post`, {
   "code": 200,
   "msg": "success",
   "data": "post ok."
