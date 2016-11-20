@@ -1,6 +1,6 @@
 'use strict';
 
-import {app, server, router} from "../server";
+import {server, router} from "../server";
 
 server.delay(0);
 
@@ -75,6 +75,4 @@ router.post(`/post`, setHeader, async(ctx, next) => {
   );
 });
 
-app.listen(9000, () => {
-  console.log(`[server] http://localhost:${9000}`);
-});
+server.listen(9001);

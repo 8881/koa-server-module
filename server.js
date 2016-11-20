@@ -43,6 +43,14 @@ class server {
       ctx.body = JSON.stringify(res);
     });
   }
+
+  static listen(port) {
+    let p = parseInt(port, 10);
+    p = isNaN(p) || (!isNaN(p) && (p < 0 || p > 65536)) ? 9000 : p;
+    app.listen(p, () => {
+      console.log(`[server] http://localhost:${p}`);
+    });
+  }
 }
 
 router.get(`*`, async(ctx, next) => {

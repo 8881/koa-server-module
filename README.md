@@ -22,7 +22,7 @@ server.post([address],[response]);
 example
 
 ```
-import {app, server} from "koa-server-module";
+import {server} from "koa-server-module";
 
 server.get('/get', {
   code: 200,
@@ -36,7 +36,7 @@ server.post('/post', {
   data: null
 });
 
-app.listen(9000);
+server.listen(9000);
 ```
 
 浏览器打开 http://localhost:9000/get, 得到对应的json数据
@@ -45,7 +45,7 @@ app.listen(9000);
 即 [koa-router](https://github.com/alexmingoia/koa-router/tree/master/) 的写法。
 
 ```
-import {app, server, router} from "koa-server-module";
+import {server, router} from "koa-server-module";
 
 router.get('/get', async(ctx,next) => {
     ctx.body = JSON.stringify({
@@ -63,14 +63,14 @@ router.post('/post', async(ctx,next) => {
     })
 });
 
-app.listen(9000);
+server.listen(9000);
 ```
 
 ### middleware
 使用中间件，例如给每个接口设置header。
 
 ```
-import {app, server, router} from "koa-server-module";
+import {server, router} from "koa-server-module";
 
 const setHeader = async(ctx, next) => {
   ctx.set(`Access-Control-Allow-Credentials`, true);
@@ -85,14 +85,14 @@ router.get('/get', setHeader, async(ctx,next) => {
     })
 });
 
-app.listen(9000);
+server.listen(9000);
 ```
 
 ### Delay
 延迟响应，模拟慢网速
 
 ```
-import {app, server} from "koa-server-module";
+import {server} from "koa-server-module";
 
 server.delay(3000); // 延迟3秒
 
@@ -102,7 +102,7 @@ server.get('/get', {
   data: null
 });
 
-app.listen(9000);
+server.listen(9000);
 ```
 
 ### pagination
@@ -111,7 +111,7 @@ app.listen(9000);
 example
 
 ```
-import {app, router} from "koa-server-module";
+import {server, router} from "koa-server-module";
 
 router.get(`/page`, async(ctx, next) => {
   const pageIndex = ctx.query.pageIndex ? parseInt(ctx.query.pageIndex) : 1;
@@ -143,7 +143,7 @@ router.get(`/page`, async(ctx, next) => {
   );
 });
 
-app.listen(9000);
+server.listen(9000);
 ```
 
 完

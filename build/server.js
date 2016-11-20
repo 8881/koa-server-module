@@ -37,11 +37,8 @@ var router = new _koaRouter2.default({
   prefix: ""
 });
 
-// 指定服务端口号
-var PORT = 3008;
-
 // API延迟时间配置
-var DELAY = 0; // 0ms
+var delay_time = 0; // 0ms
 
 var delay = function () {
   var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(ctx, next) {
@@ -51,7 +48,7 @@ var delay = function () {
           case 0:
             _context.next = 2;
             return new Promise(function (resolve, reject) {
-              setTimeout(resolve, DELAY);
+              setTimeout(resolve, delay_time);
             });
 
           case 2:
@@ -76,16 +73,18 @@ app.use(delay);
 app.use((0, _koaConvert2.default)(cors));
 app.use(router.routes());
 
-var wrap = function wrap(obj) {
-  return JSON.stringify(obj);
-};
-
 var server = function () {
   function server() {
     _classCallCheck(this, server);
   }
 
   _createClass(server, null, [{
+    key: "delay",
+    value: function delay(ms) {
+      var m = parseInt(ms, 10);
+      delay_time = isNaN(m) ? 0 : m;
+    }
+  }, {
     key: "get",
     value: function get(addr, res) {
       var _this = this;
@@ -96,7 +95,7 @@ var server = function () {
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  ctx.body = wrap(res);
+                  ctx.body = JSON.stringify(res);
 
                 case 1:
                 case "end":
@@ -122,7 +121,7 @@ var server = function () {
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
-                  ctx.body = wrap(res);
+                  ctx.body = JSON.stringify(res);
 
                 case 1:
                 case "end":
@@ -142,22 +141,28 @@ var server = function () {
   return server;
 }();
 
+router.get("*", function () {
+  var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(ctx, next) {
+    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            ctx.set("content-type", "text/html; charset-utf8");
+            ctx.body = "<h1>" + ctx.status + ".</h1>";
+
+          case 2:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4, undefined);
+  }));
+
+  return function (_x7, _x8) {
+    return _ref4.apply(this, arguments);
+  };
+}());
+
 exports.app = app;
 exports.server = server;
 exports.router = router;
-
-// router.get(`*`, async(ctx, next) => {
-//   ctx.set(`content-type`, `text/html; charset-utf8`);
-//   ctx.body = `<h1>${ctx.status}.</h1>`;
-// });
-//
-// app.listen(PORT, () => {
-//   console.log(`[server] http://localhost:${PORT}`);
-// });
-
-/** app.listen 其实就是 http.createServer 的语法糖 **/
-// const server = http.createServer(app.callback());
-// server.listen(PORT, function () {
-//   const port = server.address().port;
-//   console.log(`[server] http://localhost:${PORT}`);
-// });
