@@ -39,10 +39,7 @@ server.post('/post', {
 server.listen(9000);
 ```
 
-```
-node example.js
-```
-
+使用es6的写法需要使用 babel-register 来运行此js文件。
 浏览器打开 http://localhost:9000/get, 得到对应的json数据
 
 ### 另一种写法
@@ -159,7 +156,9 @@ es5环境下如何使用
 const server = require('../build/server').server;
 
 server.get('/test',{
-  code: 200
+  code: 200,
+    msg: 'success',
+    data: null
 });
 
 server.listen(9001);
