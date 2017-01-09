@@ -1,16 +1,16 @@
 'use strict';
 
-import {server, router} from "../build/server";
+import {server, router} from "../build/index";
 
 server.delay(0);
 
-server.get(`/get`, {
+server.get(`/get/simple`, {
   "code": 200,
   "msg": "success",
   "data": "get ok."
 });
 
-server.post(`/post`, {
+server.post(`/post/simple`, {
   "code": 200,
   "msg": "success",
   "data": "post ok."
@@ -24,7 +24,7 @@ const setHeader = async(ctx, next) => {
   await next();
 };
 
-router.get(`/get`, setHeader, async(ctx, next) => {
+router.get(`/get/complex`, setHeader, async(ctx, next) => {
   ctx.body = JSON.stringify(
     {
       "code": 200,
@@ -65,7 +65,7 @@ router.get(`/page`, setHeader, async(ctx, next) => {
   );
 });
 
-router.post(`/post`, setHeader, async(ctx, next) => {
+router.post(`/post/complex`, setHeader, async(ctx, next) => {
   ctx.body = JSON.stringify(
     {
       "code": 200,

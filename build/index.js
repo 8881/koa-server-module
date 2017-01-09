@@ -7,6 +7,8 @@ exports.router = exports.server = exports.app = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+require("babel-polyfill");
+
 var _http = require("http");
 
 var _http2 = _interopRequireDefault(_http);
@@ -33,10 +35,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-"use strict";
-
-require('babel-polyfill');
-
 var app = new _koa2.default();
 var cors = new _kcors2.default();
 var router = new _koaRouter2.default({
@@ -46,6 +44,11 @@ var router = new _koaRouter2.default({
 // API延迟时间配置
 var delay_time = 0; // 0ms
 
+/**
+ * 响应延迟中间件
+ * @param ctx
+ * @param next
+ */
 var delay = function () {
   var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(ctx, next) {
     return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -86,10 +89,22 @@ var server = function () {
 
   _createClass(server, null, [{
     key: "delay",
+
+    /**
+     * 延迟时间静态方法
+     * @param ms
+     */
     value: function delay(ms) {
       var m = parseInt(ms, 10);
       delay_time = isNaN(m) ? 0 : m;
     }
+
+    /**
+     * get请求静态方法
+     * @param addr
+     * @param res
+     */
+
   }, {
     key: "get",
     value: function get(addr, res) {
@@ -116,6 +131,13 @@ var server = function () {
         };
       }());
     }
+
+    /**
+     * post请求静态方法
+     * @param addr
+     * @param res
+     */
+
   }, {
     key: "post",
     value: function post(addr, res) {
@@ -142,6 +164,12 @@ var server = function () {
         };
       }());
     }
+
+    /**
+     * 端口监听，启动服务
+     * @param port
+     */
+
   }, {
     key: "listen",
     value: function listen(port) {

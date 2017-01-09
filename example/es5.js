@@ -1,10 +1,10 @@
 'use strict';
 
-const server = require('../build/server').server;
+const server = require('../build/index').server;
 
-console.log(server);
+server.delay(0);
 
-server.get('/test',{
+server.get('/test', {
   code: 200
 });
 
